@@ -31,19 +31,21 @@ def fetch_resources(uri, rel):
     :rtype: str
     :raises: :exc:`~easy_pdf.exceptions.UnsupportedMediaPathException`
     """
-    if settings.STATIC_URL and uri.startswith(settings.STATIC_URL):
+    if settings.STATIC_ROOT and settings.STATIC_URL and uri.startswith(settings.STATIC_URL):
         path = os.path.join(settings.STATIC_ROOT, uri.replace(settings.STATIC_URL, ""))
+    elif settings.STATIC_URL and uri.startswith(settings.STATIC_URL):
+        path = uri
     elif settings.MEDIA_URL and uri.startswith(settings.MEDIA_URL):
         path = os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ""))
     else:
         path = os.path.join(settings.STATIC_ROOT, uri)
 
-    if not os.path.isfile(path):
-        raise UnsupportedMediaPathException(
-            "media urls must start with {} or {}".format(
-                settings.MEDIA_ROOT, settings.STATIC_ROOT
-            )
-        )
+    #     if not os.path.isfile(path) or not.pa:
+    #         raise UnsupportedMediaPathException(
+    #             "media urls must start with {} or {}".format(
+    #                 settings.MEDIA_ROOT, settings.STATIC_ROOT
+    #             )
+    #         )
 
     return path.replace("\\", "/")
 
