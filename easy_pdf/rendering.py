@@ -8,6 +8,7 @@ import os
 from django.conf import settings
 from django.template import loader
 from django.http import HttpResponse
+
 # from django.utils.http import urlquote
 # call with urllib.parse.quote directly as urlquote alias is deprecated in django 4
 from urllib.parse import quote
